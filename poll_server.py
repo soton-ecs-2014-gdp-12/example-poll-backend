@@ -5,5 +5,9 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!'
 
+@app.route('/cors_test')
+def cors_test():
+    return 'cors response'
+
 if __name__ == '__main__':
     app.run()
