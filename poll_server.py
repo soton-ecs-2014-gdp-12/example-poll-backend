@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import Flask, make_response, g
+from flask import Flask, make_response, g, jsonify, request, abort
 import sqlite3
 import os
 app = Flask(__name__)
@@ -59,8 +59,22 @@ def results():
 @app.route('/vote', methods=["POST"])
 @add_cors
 def vote():
+    vote = request.get_json(force=True)
+
+    if("questionResult" not in vote or "annotation" not in vote or "result" not in vote):
+        abort(400)
+
+    db = get_db()
+    cur = db.cursor()
+
+    if isinstance(vote["result"], list):
+        for item in vote["result"]:
+            cur.execute('INSERT INTO votes VALUES (?,?,?)', (vote["questionResult"],vote["annotation"],item))
+    else:
+            cur.execute('INSERT INTO votes VALUES (?,?,?)', (vote["questionResult"],vote["annotation"],vote["result"]))
+    db.commit()
+    
     resp = make_response()
-    resp.data = 'voted'
     return resp
 
 @app.teardown_appcontext
