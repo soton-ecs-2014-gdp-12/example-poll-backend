@@ -31,3 +31,34 @@ Example Setup
 ====================
 
 Before use you should browse to /setup to allow the server to setup the database
+
+
+Configuring an Apache webserver to run this application
+=======================================================
+
+First deploy this repository to the webserver.
+
+Then the apache httpd.conf file needs to be configured by adding the following entry somewhere in the file:
+
+	<VirtualHost <hostname>:80>
+		ServerName <hostname>
+		WSGIDaemonProcess poll_server user=<user> group=<group> threads=5
+		WSGIScriptAlias / /<location>/poll_server.wsgi
+		ErrorLog logs/poll_server-error_log
+		CustomLog logs/poll_server-access_log common
+	
+		<Directory <location>>
+			WSGIProcessGroup poll_server
+	            WSGIApplicationGroup %{GLOBAL}
+	            Order deny,allow
+	            Allow from all
+		</Directory>
+	</VirtualHost>
+
+Paramters needing changes:
+
+* `<hostname>` is the hostname of the server. e.g. cheddar.chewett.net
+* `<location>` is the location of the sourcecode on the server. e.g. /var/www/poll_server/
+* `<user>` is the user you want the script to run under, by default apache
+* `<group>` is the group you want the script to run under, by default apache
+* The `ErrorLog` and `CustomLog` parameters can be changed to any location
