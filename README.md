@@ -7,7 +7,7 @@ It is to be used as a guide to the polls API. The backend database and any proce
 API
 ====================
 
-The server exposes two endpoints, a POST /vote and a GET /results/annotationId/questionId. Additonally some work is done to fix CORS problems that could occur.
+The server exposes two endpoints, a POST /vote and a GET /results/annotationId/questionId. Additionally some work is done to fix CORS problems that could occur.
 
 The POST endpoint expects a schema similar to the vg-questions webworker:
 ```
@@ -55,7 +55,7 @@ Then the apache httpd.conf file needs to be configured by adding the following e
 		</Directory>
 	</VirtualHost>
 
-Paramters needing changes:
+Parameters needing changes:
 
 * `<hostname>` is the hostname of the server. e.g. cheddar.chewett.net
 * `<location>` is the location of the sourcecode on the server. e.g. /var/www/poll_server/
