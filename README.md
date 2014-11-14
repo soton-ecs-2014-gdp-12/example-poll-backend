@@ -57,7 +57,7 @@ Then the apache httpd.conf file needs to be configured by adding the following e
 
 Parameters needing changes:
 
-* `<hostname>` is the hostname of the server. e.g. cheddar.chewett.net
+* `<hostname>` is the hostname of the server. e.g. hostname.domain.com
 * `<location>` is the location of the sourcecode on the server. e.g. /var/www/poll_server/
 * `<user>` is the user you want the script to run under, by default apache
 * `<group>` is the group you want the script to run under, by default apache
