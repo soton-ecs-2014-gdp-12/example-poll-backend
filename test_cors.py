@@ -18,7 +18,6 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_cors_header(self):
         response = self.app.get('/cors_test', headers=dict(Origin='localhost'))
-        print response.headers
         assert 'Access-Control-Allow-Origin' in response.headers
 
 if __name__ == '__main__':
