@@ -62,3 +62,10 @@ Parameters needing changes:
 * `<user>` is the user you want the script to run under, by default apache
 * `<group>` is the group you want the script to run under, by default apache
 * The `ErrorLog` and `CustomLog` parameters can be changed to any location
+
+Unit Tests
+==========
+
+We have written unit tests to ensure the poll server is correctly working.
+
+These can be run with `nosetests`
