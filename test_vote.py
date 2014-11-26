@@ -52,5 +52,10 @@ class FlaskrTestCase(unittest.TestCase):
         response = self.app.post('/vote', data=json.dumps(dict(questionResult=cur_time, annotation=cur_time,  result=cur_time)))
         self.assertEqual(response.status_code, 200)
 
+    def test_valid_vote_multiple(self):
+        cur_time = int(time.time())
+        response = self.app.post('/vote', data=json.dumps(dict(questionResult=cur_time, annotation=cur_time,  result=[cur_time, cur_time -1, cur_time - 2])))
+        self.assertEqual(response.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()
