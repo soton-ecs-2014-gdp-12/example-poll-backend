@@ -4,6 +4,7 @@ import json
 import uuid
 import time
 
+
 class FlaskrTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -26,7 +27,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_get_multiple_results(self):
         random_id = uuid.uuid4().hex
         cur_time = int(time.time())
-        poll_response = self.app.post('/vote', data=json.dumps(dict(questionResult=cur_time, annotation=random_id,  result=[cur_time, cur_time -1, cur_time - 2])))
+        poll_response = self.app.post('/vote', data=json.dumps(dict(questionResult=cur_time, annotation=random_id,  result=[cur_time, cur_time - 1, cur_time - 2])))
         result_response = self.app.get('/results/' + random_id + '/' + str(cur_time))
         json_response = json.loads(result_response.data)
 

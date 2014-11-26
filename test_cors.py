@@ -1,7 +1,6 @@
-import os
 import poll_server
 import unittest
-import tempfile
+
 
 class FlaskrTestCase(unittest.TestCase):
 

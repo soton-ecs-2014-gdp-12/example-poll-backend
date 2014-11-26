@@ -3,6 +3,7 @@ import poll_server
 import unittest
 import shutil
 
+
 class FlaskrTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -29,7 +30,6 @@ class FlaskrTestCase(unittest.TestCase):
 
         os.remove(poll_server.db_name)
         self.move_save_db_file_back()
-
 
     def test_db_created_already(self):
         self.move_save_db_file()

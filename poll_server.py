@@ -8,6 +8,7 @@ db_name = "votes.db"
 
 # CORS from http://coalkids.github.io/flask-cors.html
 
+
 @app.before_request
 def option_autoreply():
     """ Always reply 200 on OPTIONS request """
@@ -45,8 +46,8 @@ def set_allow_origin(resp):
     if request.method != 'OPTIONS' and 'Origin' in request.headers:
         h['Access-Control-Allow-Origin'] = request.headers['Origin']
 
-
     return resp
+
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -59,11 +60,13 @@ def get_db():
 def hello_world():
     return 'Hello World!'
 
+
 @app.route('/cors_test')
 def cors_test():
     resp = make_response()
     resp.data = 'cors response'
     return resp
+
 
 @app.route('/setup')
 def setup():
@@ -81,20 +84,23 @@ def setup():
     resp.data = 'db created'
     return resp
 
+
 @app.route('/results/<annotationId>/<questionId>', methods=["GET"])
 def results(annotationId, questionId):
 
     db = get_db()
     cur = db.cursor()
 
-    cur.execute('SELECT result, count(*) FROM votes WHERE questionID = ? AND annotationID = ? GROUP BY result', (questionId, annotationId))
-    return jsonify(cur.fetchall());
+    cur.execute('SELECT result, count(*) FROM votes WHERE questionID = ? AND annotationID = ? GROUP BY result',
+                (questionId, annotationId))
+    return jsonify(cur.fetchall())
+
 
 @app.route('/vote', methods=["POST"])
 def vote():
     vote = request.get_json(force=True)
 
-    if("questionResult" not in vote or "annotation" not in vote or "result" not in vote):
+    if "questionResult" not in vote or "annotation" not in vote or "result" not in vote:
         abort(400)
 
     db = get_db()
@@ -102,13 +108,16 @@ def vote():
 
     if isinstance(vote["result"], list):
         for item in vote["result"]:
-            cur.execute('INSERT INTO votes VALUES (?,?,?)', (vote["questionResult"],vote["annotation"],item))
+            cur.execute('INSERT INTO votes VALUES (?,?,?)',
+                        (vote["questionResult"], vote["annotation"], item))
     else:
-            cur.execute('INSERT INTO votes VALUES (?,?,?)', (vote["questionResult"],vote["annotation"],vote["result"]))
+        cur.execute('INSERT INTO votes VALUES (?,?,?)',
+                    (vote["questionResult"], vote["annotation"], vote["result"]))
     db.commit()
-    
+
     resp = make_response()
     return resp
+
 
 @app.teardown_appcontext
 def close_connection(exception):
