@@ -10,6 +10,7 @@ class FlaskrTestCase(unittest.TestCase):
     def setUp(self):
         poll_server.app.config['TESTING'] = True
         self.app = poll_server.app.test_client()
+        self.app.get('/setup')
 
     def tearDown(self):
         pass
