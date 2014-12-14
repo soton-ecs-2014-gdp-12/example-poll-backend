@@ -30,6 +30,8 @@ The GET endpoint returns an object of result<->vote-count pairs:
 Example Setup
 ====================
 
+Starting the poll server can be done with python poll_server.py
+
 Before use you should browse to /setup to allow the server to setup the database
 
 
@@ -69,3 +71,16 @@ Unit Tests
 We have written unit tests to ensure the poll server is correctly working.
 
 These can be run with `nosetests`
+
+Stress Testing
+==============
+
+To run the stress testing script you need to install [Locust](http://locust.io/).
+
+Once this has been done you need to start the poll server and then start locust with the command
+
+	locust -f stress_testing.py --host http://127.0.0.1:5000
+
+Browsing to localhost:8089 will show you the locust settings to begin the stress test.
+
+This was tested using 50 users and found to have an average response time of 70 milliseconds.
